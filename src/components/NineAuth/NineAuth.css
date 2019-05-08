@@ -1,0 +1,26 @@
+.passcontainer{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+    background: grey;
+    width: 600px;
+    height: 600px;
+    border-radius: 2%;
+}
+#pattern{
+    margin: 50px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: black;
+}
+.lines{
+    border-radius: 10%/50%;
+
+}
