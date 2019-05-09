@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './NineAuth.css'
+import './NineAuth.css';
 import LineTo from 'react-lineto';
-
+import axios from 'axios'
 
 class NineAuth extends Component {
     constructor() {
@@ -29,6 +29,9 @@ class NineAuth extends Component {
             lines: [],
             username: ''
         }
+    }
+    componentDidMount(){
+        console.log('hi')
     }
     handleLines() {
         const { lines } = this.state
@@ -64,16 +67,33 @@ class NineAuth extends Component {
 
         }
     }
-    handlePassword() {
+    handlePassword  = async () => {
         const { Aone, Atwo, Athree, Bone, Btwo, Bthree, Cone, Ctwo, Cthree } = this.state
         let passwordGen = `${Aone}${Atwo}${Athree}${Bone}${Btwo}${Bthree}${Cone}${Ctwo}${Cthree}`
-        this.setState({
+        let user = {
+            username: this.state.username,
             password: passwordGen
+        }
+        await axios.post('/auth/register', user).then(res => {
+            this.props.history.push('/profile')
         })
     }
     handleUsername(val){
         this.setState({
             username: val
+        })
+    }
+    handleLogin = async () => {
+        const { Aone, Atwo, Athree, Bone, Btwo, Bthree, Cone, Ctwo, Cthree } = this.state
+        let passwordGen = `${Aone}${Atwo}${Athree}${Bone}${Btwo}${Bthree}${Cone}${Ctwo}${Cthree}`
+        let user = {
+            username: this.state.username,
+            password: passwordGen
+        }
+        await axios.post('/auth/login', user).then(res => {
+            this.props.history.push('/profile')
+        }).catch(err => {
+            alert('Incorrect Password')
         })
     }
     render() {
@@ -83,7 +103,7 @@ class NineAuth extends Component {
         return (
             <div>
                 {this.handleLines()}
-                <div style={{marginTop: 80}}>
+                <div style={{marginTop: 40}}>
                 <h1> Enter a username and select a pattern as your password </h1>
                 <input value={this.state.username} placeholder="username" onChange={(e) => {this.handleUsername(e.target.value)}}></input>
                 </div>
@@ -97,7 +117,8 @@ class NineAuth extends Component {
                     <div className="conediv" onClick={() => { this.handleToggle('Cone', !Cone, 'ConeColor', "conediv") }} style={{ background: ConeColor }} id="pattern"></div>
                     <div className='ctwodiv' onClick={() => { this.handleToggle('Ctwo', !Ctwo, 'CtwoColor', "ctwodiv") }} style={{ background: CtwoColor }} id="pattern"></div>
                     <div className="cthreediv" onClick={() => { this.handleToggle('Cthree', !Cthree, 'CthreeColor', "cthreediv") }} style={{ background: CthreeColor }} id="pattern"></div>
-                    <button onClick={() => { this.handlePassword() }}>Set Password</button>
+                    <button onClick={ () => { this.handleLogin() }}>Login</button>
+                    <button onClick={() => { this.handlePassword() }}>Create Account</button>
                 </div>
 
             </div>

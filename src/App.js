@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import NineAuth from './components/NineAuth/NineAuth'
+import routes from './routes';
 
 function App() {
   return (
     <div className="App">
-     <NineAuth />
+     {routes}
     </div>
   );
 }

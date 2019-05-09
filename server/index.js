@@ -20,3 +20,6 @@ massive(CONNECTION_STRING).then(db => {
 const app = express();
 
 app.use(bodyParser.json());
+
+app.post('/auth/register', ctrl.register);
+app.post('/auth/login', ctrl.login);
